@@ -99,6 +99,9 @@
     <ClCompile Include="SoundPlayer.cpp">
       <Filter>Source Files\Utilities\Media</Filter>
     </ClCompile>
+    <ClCompile Include="Scene00_Logo.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -145,6 +148,9 @@
     </ClInclude>
     <ClInclude Include="SoundPlayer.h">
       <Filter>Header Files\Utilities\Media</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene00_Logo.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

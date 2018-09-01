@@ -7,12 +7,12 @@
 #include "Camera.h"
 /* ------------ */
 
-class S01Main :
+class S00Logo :
 	public GLScene
 {
 public:
-	S01Main();
-	virtual ~S01Main();
+	S00Logo();
+	virtual ~S00Logo();
 
 	virtual void init();
 	virtual void reset();
@@ -27,6 +27,6 @@ private:
 
 	Camera	m_Camera;
 	Model	m_Model;
-	Object	m_Object[10];
+	Object	m_Title;
 };
 

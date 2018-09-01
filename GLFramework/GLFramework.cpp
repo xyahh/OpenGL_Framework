@@ -5,6 +5,7 @@
 using namespace std;
 
 /* SCENES */
+#include "Scene00_Logo.h"
 #include "Scene01_Main.h"
 /*--------*/
 
@@ -20,11 +21,14 @@ GLFramework::~GLFramework()
 void GLFramework::init(int argc, char * argv[], int WinWidth, int WinHeight, int DisplayMode)
 {
 	m_Timer.reset();
+
 	glutInit(&argc, argv);
 	glutInitDisplayMode(DisplayMode);
 	glutInitWindowSize(WinWidth, WinHeight);
-	glutInitWindowPosition((glutGet(GLUT_SCREEN_WIDTH) - WinWidth) / 2,
-		(glutGet(GLUT_SCREEN_HEIGHT) - WinHeight) / 2);
+	glutInitWindowPosition(
+		(glutGet(GLUT_SCREEN_WIDTH) - WinWidth) / 2,
+		(glutGet(GLUT_SCREEN_HEIGHT) - WinHeight) / 2
+	);
 	glutCreateWindow(m_WinTitle.c_str());
 
 	m_Framework = this;
@@ -33,7 +37,8 @@ void GLFramework::init(int argc, char * argv[], int WinWidth, int WinHeight, int
 	glewInit();
 	glEnable(GL_DEPTH_TEST);
 
-	addScene("Main", new S01Main, true);
+	addScene("Logo", new S00Logo, true);
+	addScene("Main", new S01Main);
 }
 
 void GLFramework::run()
@@ -76,43 +81,43 @@ void GLFramework::reshape(int w, int h)
 void GLFramework::keyboardDown(unsigned char key, int x, int y)
 {
 	if (m_Scenes[m_CurrentScene])
-		m_Scenes[m_CurrentScene]->keyboard(key, GLUT_DOWN, x, y, false);
+		m_Scenes[m_CurrentScene]->keyboard(key, true, x, y, false);
 }
 
 void GLFramework::keyboardUp(unsigned char key, int x, int y)
 {
 	if (m_Scenes[m_CurrentScene])
-		m_Scenes[m_CurrentScene]->keyboard(key, GLUT_UP, x, y, false);
+		m_Scenes[m_CurrentScene]->keyboard(key, false, x, y, false);
 }
 
 void GLFramework::mouse(int button, int state, int x, int y)
 {
 	if (m_Scenes[m_CurrentScene])
-		m_Scenes[m_CurrentScene]->mouse(button, state, x, y);
+		m_Scenes[m_CurrentScene]->mouse(button, state==GLUT_DOWN, x, y);
 }
 
 void GLFramework::motion(int x, int y)
 {
 	if (m_Scenes[m_CurrentScene])
-		m_Scenes[m_CurrentScene]->motion(GLUT_DOWN, x, y);
+		m_Scenes[m_CurrentScene]->motion(true, x, y);
 }
 
 void GLFramework::freeMotion(int x, int y)
 {
 	if (m_Scenes[m_CurrentScene])
-		m_Scenes[m_CurrentScene]->motion(GLUT_UP, x, y);
+		m_Scenes[m_CurrentScene]->motion(false, x, y);
 }
 
 void GLFramework::specialDown(int key, int x, int y)
 {
 	if (m_Scenes[m_CurrentScene])
-		m_Scenes[m_CurrentScene]->keyboard(key, GLUT_DOWN, x, y, true);
+		m_Scenes[m_CurrentScene]->keyboard(key, true, x, y, true);
 }
 
 void GLFramework::specialUp(int key, int x, int y)
 {
 	if (m_Scenes[m_CurrentScene])
-		m_Scenes[m_CurrentScene]->keyboard(key, GLUT_UP, x, y, true);
+		m_Scenes[m_CurrentScene]->keyboard(key, false, x, y, true);
 }
 
 void GLFramework::update(int value)
@@ -166,7 +171,7 @@ void GLFramework::regSpecialFunction(SpecialFunc specialDown, SpecialFunc specia
 	fnSpecialUp = specialUp;
 }
 
-void GLFramework::bindGLFunctions()
+void GLFramework::bindFunctions()
 {
 	glutDisplayFunc(fnDraw);
 	glutReshapeFunc(fnReshape);

@@ -1,0 +1,6 @@
+- Add Option for calling Initialize at the start or when changing scenes (loading all objects at initialization can take a while)
+- Make a loading screen for this.
+
+- Lighting Class
+- Shaders(?)
+- How to read FBX files

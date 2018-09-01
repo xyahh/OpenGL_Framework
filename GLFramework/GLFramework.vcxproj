@@ -136,6 +136,7 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Picking.cpp" />
+    <ClCompile Include="Scene00_Logo.cpp" />
     <ClCompile Include="Scene01_Main.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="SoundPlayer.cpp" />
@@ -154,6 +155,7 @@
     <ClInclude Include="Model.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Picking.h" />
+    <ClInclude Include="Scene00_Logo.h" />
     <ClInclude Include="Scene01_Main.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SoundPlayer.h" />

@@ -48,9 +48,9 @@ public:
 	void regMouseFunction(MouseFunc mouse);
 	void regMotionFunction(MotionFunc motion, MotionFunc freeMotion);
 	void regSpecialFunction(SpecialFunc specialDown, SpecialFunc specialUp);
-	void bindGLFunctions();
+	void bindFunctions();
 
-	void addScene(std::string strSceneName, GLScene * pScene, bool bMakeThisCurrentScene);
+	void addScene(std::string strSceneName, GLScene * pScene, bool bMakeThisCurrentScene = false);
 	void popScene();
 	void deleteScenes();
 	void toScene(std::string sceneName);

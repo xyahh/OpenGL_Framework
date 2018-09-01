@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Scene01_Main.h"
+#include "GLFramework.h"
 
 S01Main::S01Main()
 {
@@ -39,20 +40,21 @@ void S01Main::render()
 
 void S01Main::reshape(int w, int h)
 {
+
 }
 
-void S01Main::keyboard(int key, int state, int x, int y, bool special)
+void S01Main::keyboard(int key, bool pressed, int x, int y, bool special)
 {
 
 }
 
-void S01Main::mouse(int button, int state, int x, int y)
+void S01Main::mouse(int button, bool pressed, int x, int y)
 {
 }
 
-void S01Main::motion(int state, int x, int y)
+void S01Main::motion(bool pressed, int x, int y)
 {
-	m_Camera.rotate(x, y, state == GLUT_DOWN);
+	m_Camera.rotate(x, y, pressed);
 }
 
 void S01Main::update(float fDeltaTime)

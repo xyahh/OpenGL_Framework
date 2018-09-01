@@ -6,7 +6,7 @@ constexpr auto DEF_WIN_HEIGHT		{ 600 };
 
 using namespace std;
 
-GLFramework fw("OpenGL JM Framework Test");
+GLFramework fw("OpenGL Framework Test");
 
 int main(int argc, char* argv[])
 {
@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
 	fw.regMotionFunction([](int x, int y) { fw.motion(x, y); },
 		[](int x, int y) { fw.freeMotion(x, y); });
 
-	fw.bindGLFunctions();
+	fw.bindFunctions();
 
 	fw.run();
 }
