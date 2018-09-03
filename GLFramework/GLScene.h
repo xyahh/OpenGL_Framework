@@ -20,6 +20,8 @@ public:
 	virtual void motion(bool pressed, int x, int y) {}
 	virtual void update(float fDeltaTime) {}
 
+	void print(std::string str, float x, float y, float z); // for debugging purposes only
+
 protected:
 
 };

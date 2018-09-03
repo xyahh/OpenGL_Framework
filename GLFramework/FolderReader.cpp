@@ -4,7 +4,7 @@
 WIN32_FIND_DATAA	FolderReader::m_DataFinder;
 HANDLE				FolderReader::m_Handle;
 
-std::list<std::string> FolderReader::readFolder(std::string path, std::string type)
+std::vector<std::string> FolderReader::readFolder(std::string path, std::string type)
 {
 	std::string filetypes(path);
 	filetypes.erase(filetypes.find_last_not_of("\\") + 1);
@@ -12,24 +12,28 @@ std::list<std::string> FolderReader::readFolder(std::string path, std::string ty
 	if (filetypes.length() > MAX_PATH)
 	{
 		std::cout << std::endl << "Directory path is too long." << std::endl;
-		return std::list<std::string>();
+		return std::vector<std::string>();
 	}
 	finder(filetypes.c_str());
-	std::list<std::string> filenames = getFilenames();
+	std::vector<std::string> filenames = getFilenames();
 	FindClose(m_Handle);
 	return filenames;
 }
 
-std::list<std::string> FolderReader::readFolder(std::string path)
+std::vector<std::string> FolderReader::readFolder(std::string path)
 {
 	return readFolder(path, std::string("*"));
 }
 
-std::list<std::string> FolderReader::readFolder(std::string path, std::vector<std::string> supportedTypes)
+std::vector<std::string> FolderReader::readFolder(std::string path, std::vector<std::string> supportedTypes)
 {
-	std::list<std::string> filenames;
+	std::vector<std::string> filenames;
 	for (auto& type : supportedTypes)
-		filenames.merge(readFolder(path, type));
+	{
+		auto files = readFolder(path, type);
+		filenames.reserve(filenames.size() + files.size());
+		filenames.insert(filenames.end(), files.begin(), files.end());
+	}
 	return filenames;
 }
 
@@ -52,9 +56,9 @@ void FolderReader::finder(std::string a)
 	m_Handle = FindFirstFileA(a.c_str(), &m_DataFinder);
 }
 
-std::list<std::string> FolderReader::getFilenames()
+std::vector<std::string> FolderReader::getFilenames()
 {
-	std::list<std::string> result;
+	std::vector<std::string> result;
 	for (std::string name = findFirstFile(); !name.empty(); name = findNextFile())
 		result.push_back(name);
 	return result;

@@ -10,10 +10,8 @@ public:
 
 	int addSound(LPCSTR path, bool isBGM = false);
 
-	void startEffect(size_t idx);
-	void startMusic(size_t idx);
-
-	void play();
+	void play(size_t idx, bool isMusic);
+	void unpause();
 	void pause();
 	void stop(bool master_stop);
 

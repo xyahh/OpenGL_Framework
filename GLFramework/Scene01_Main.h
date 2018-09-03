@@ -5,6 +5,7 @@
 #include "Model.h"
 #include "Object.h"
 #include "Camera.h"
+#include "SoundPlayer.h"
 /* ------------ */
 
 class S01Main :
@@ -25,8 +26,9 @@ public:
 
 private:
 
-	Camera	m_Camera;
-	Model	m_Model;
-	Object	m_Object[10];
+	Camera			m_Camera;
+	Model			m_Model;
+	Object			m_Object[10];
+	SoundPlayer		m_SoundPlayer;
 };
 

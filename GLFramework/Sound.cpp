@@ -52,6 +52,16 @@ void Sound::stop(bool master_stop)
 	cg_master->stop();
 }
 
+void Sound::play(size_t idx, bool isMusic)
+{
+	if (idx < 0 && idx >= m_Sounds.size()) return;
+	if (isMusic)
+		m_SoundSystem->playSound(m_Sounds[idx], nullptr, false, &m_SoundChannel);
+	else
+		m_SoundSystem->playSound(m_Sounds[idx], nullptr, false, nullptr);
+	m_isPaused = false;
+}
+
 void Sound::pause()
 {
 	if (!m_SoundChannel) return;
@@ -59,21 +69,7 @@ void Sound::pause()
 	m_isPaused = true;
 }
 
-void Sound::startEffect(size_t idx)
-{
-	if (idx < 0 && idx >= m_Sounds.size()) return;
-	m_SoundSystem->playSound(m_Sounds[idx], nullptr, false, nullptr);
-	m_isPaused = false;
-}
-
-void Sound::startMusic(size_t idx)
-{
-	if (idx < 0 && idx >= m_Sounds.size()) return;
-	m_SoundSystem->playSound(m_Sounds[idx], nullptr, false, &m_SoundChannel);
-	m_isPaused = false;
-}
-
-void Sound::play()
+void Sound::unpause()
 {
 	if (!m_SoundChannel) return;
 	m_SoundChannel->setPaused(false);

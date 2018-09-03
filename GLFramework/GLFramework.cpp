@@ -189,7 +189,6 @@ void GLFramework::addScene(std::string strSceneName, GLScene * pScene, bool bMak
 {
 	if (!pScene) return;
 	pScene->init();
-	pScene->reset();
 	m_Scenes.emplace(strSceneName, pScene);
 	if (bMakeThisCurrentScene)
 		m_CurrentScene = strSceneName;

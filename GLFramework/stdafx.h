@@ -15,12 +15,9 @@
 #include <list>
 #include <map>
 
-///#pragma comment(lib, "User32.lib")
-
 /* FMOD */
 #include "Dependencies/FMOD/include/fmod.hpp"
 
 /* GL */
-///#define GLEW_STATIC
 #include "Dependencies/GL/glew.h"
 #include "Dependencies/GL/freeglut.h"

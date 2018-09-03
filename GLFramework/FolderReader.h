@@ -12,14 +12,14 @@ class FolderReader {
 
 public:
 
-	static std::list<std::string> readFolder(std::string path, std::string type);
-	static std::list<std::string> readFolder(std::string path);
-	static std::list<std::string> readFolder(std::string path, std::vector<std::string> supportedTypes);
+	static std::vector<std::string> readFolder(std::string path, std::string type);
+	static std::vector<std::string> readFolder(std::string path);
+	static std::vector<std::string> readFolder(std::string path, std::vector<std::string> supportedTypes);
 
 private:
 	static std::string findFirstFile();
 	static std::string findNextFile();
 
 	static void finder(std::string a);
-	static std::list<std::string> getFilenames();
+	static std::vector<std::string> getFilenames();
 };
