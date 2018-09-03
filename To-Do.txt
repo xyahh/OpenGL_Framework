@@ -1,6 +1,11 @@
 - Add Option for calling Initialize at the start or when changing scenes (loading all objects at initialization can take a while)
-- Make a loading screen for this.
-
+	- How to do this?
+		Class GL Scene should have a constructor with BOOL
+		Init function will call a Loading Scene
+			- Make a loading screen for this.
+		and will destroy it once everything is done
+		toScene will check if the Scene has Initialized or not
+	
 - Lighting Class
 - Shaders(?)
 - How to read FBX files
