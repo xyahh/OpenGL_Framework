@@ -23,6 +23,10 @@ void S00Logo::init()
 
 }
 
+void S00Logo::exit()
+{
+}
+
 void S00Logo::reset()
 {
 }
@@ -40,7 +44,8 @@ void S00Logo::reshape(int w, int h)
 
 void S00Logo::keyboard(int key, bool pressed, int x, int y, bool special)
 {
-	m_Framework->toScene("Main");
+	if(pressed)
+		m_Framework->toScene("Main");
 }
 
 void S00Logo::mouse(int button, bool pressed, int x, int y)

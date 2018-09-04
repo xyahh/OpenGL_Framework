@@ -16,6 +16,7 @@ public:
 	virtual ~S01Main();
 
 	virtual void init();
+	virtual void exit();
 	virtual void reset();
 	virtual void render();
 	virtual void reshape(int w, int h);

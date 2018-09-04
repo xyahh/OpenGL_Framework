@@ -12,6 +12,7 @@ S01Main::~S01Main()
 
 void S01Main::init()
 {
+	m_SoundPlayer.init();
 	m_SoundPlayer.selectFolder("Resources");
 
 	m_Camera.setDistance(2000.f);
@@ -26,6 +27,12 @@ void S01Main::init()
 		m_Object[i].setPosition(i*200.f - 1000.f, 0.f, 0.f);
 	}
 
+}
+
+void S01Main::exit()
+{
+	m_Model.kill();
+	m_SoundPlayer.exit();
 }
 
 void S01Main::reset()
@@ -60,6 +67,7 @@ void S01Main::keyboard(int key, bool pressed, int x, int y, bool special)
 			case 's': m_SoundPlayer.shuffle(); break;
 			case 'x': m_SoundPlayer.unshuffle(); break;
 			case 'd': m_SoundPlayer.next(); break;
+			case ' ': m_Framework->toScene("Logo"); break;
 		}
 }
 

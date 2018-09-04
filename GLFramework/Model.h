@@ -24,14 +24,6 @@ class Model
 		std::vector<ModelIndex>		m_vmiModelIndices;
 	};
 
-private:
-	enum { VERTEX, NORMAL, TEXCOORD, POLYGON };
-
-	int						m_nIndexSize;
-	GLuint					m_uVaoID;
-	GLuint					m_uVertexBuffer;
-	Texture					m_ModelTexture;
-
 public:
 	Model();
 	~Model();
@@ -49,4 +41,13 @@ private:
 		std::vector<Polygon>&	m_VplPolygonBuffer,
 		bool bFoundTextures, bool bFoundNormals);
 	void deleteVBO();
+
+
+private:
+	enum { VERTEX, NORMAL, TEXCOORD, POLYGON };
+	bool					m_bLoaded	{ false };
+	int						m_nIndexSize;
+	GLuint					m_uVaoID;
+	GLuint					m_uVertexBuffer;
+	Texture					m_ModelTexture;
 };

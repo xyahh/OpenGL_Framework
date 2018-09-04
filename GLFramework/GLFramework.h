@@ -50,8 +50,9 @@ public:
 	void regSpecialFunction(SpecialFunc specialDown, SpecialFunc specialUp);
 	void bindFunctions();
 
-	void addScene(std::string strSceneName, GLScene * pScene, bool bMakeThisCurrentScene = false);
-	void popScene();
+	void addScene(std::string strSceneName, GLScene * pScene, bool bInitAtStart=true, bool bMakeThisCurrentScene = false);
+	void deleteCurrentScene(std::string strNextScene);
+	void deleteScene(std::string strSceneName);
 	void deleteScenes();
 	void toScene(std::string sceneName);
 

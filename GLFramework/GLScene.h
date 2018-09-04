@@ -12,6 +12,7 @@ public:
 	GLScene() {}
 	virtual ~GLScene() {}
 	virtual void init() {}
+	virtual void exit() {}
 	virtual void reset() {}
 	virtual void render() {}
 	virtual void reshape(int w, int h) {}
@@ -22,7 +23,8 @@ public:
 
 	void print(std::string str, float x, float y, float z); // for debugging purposes only
 
-protected:
+public:
 
+	bool RTLoad	{ false };	// if to load when program starting or while in Runtime
 };
 

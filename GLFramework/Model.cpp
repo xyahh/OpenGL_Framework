@@ -92,17 +92,21 @@ bool Model::load(std::string objectPath, std::string texturePath)
 	if (!texturePath.empty())
 		m_ModelTexture.load(texturePath);
 
-	return createVBO(
+	m_bLoaded = createVBO(
 		vv3VertexBuffer,
 		vv2TextureBuffer,
 		vv3NormalBuffer,
 		vplPolygonBuffer,
 		foundTexCoords, foundNormals
 	);
+
+	return m_bLoaded;
 }
 
 void Model::render()
 {
+	if (!m_bLoaded) return;
+
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY_EXT);
@@ -213,4 +217,6 @@ void Model::deleteVBO()
 
 	glBindVertexArray(0);
 	glDeleteVertexArrays(1, &m_uVaoID);
+
+	m_bLoaded = false;
 }

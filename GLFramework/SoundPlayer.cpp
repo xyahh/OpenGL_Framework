@@ -5,6 +5,8 @@
 
 void SoundPlayer::play()
 {
+	if (m_CurrentSoundIdx >= m_SoundFilenames.size())
+		return;
 	m_SoundManager.play(m_SoundPlayOrder[m_CurrentSoundIdx], m_bMusic);
 }
 
@@ -25,6 +27,9 @@ void SoundPlayer::stop()
 
 bool SoundPlayer::next()
 {
+	if (m_CurrentSoundIdx >= m_SoundFilenames.size())
+		return false;
+
 	if (m_CurrentSoundIdx == m_SoundFilenames.size() - 1)
 	{
 		if (m_bLoop)
@@ -40,6 +45,9 @@ bool SoundPlayer::next()
 
 bool SoundPlayer::prev()
 {	
+	if (m_CurrentSoundIdx >= m_SoundFilenames.size())
+		return false;
+
 	if (m_CurrentSoundIdx == 0)
 	{
 		if (m_bLoop) 
@@ -60,6 +68,9 @@ void SoundPlayer::setLoop(bool bLoopState)
 
 void SoundPlayer::shuffle()
 {
+	if (m_CurrentSoundIdx >= m_SoundFilenames.size())
+		return;
+
 	std::random_device rd;
 	std::default_random_engine dre(rd());
 	size_t szCurrentSound = m_SoundPlayOrder[m_CurrentSoundIdx];
@@ -86,6 +97,9 @@ bool SoundPlayer::playing()
 
 std::string SoundPlayer::getSoundFilename() const
 {
+	if (m_CurrentSoundIdx >= m_SoundFilenames.size())
+		return std::string();
+
 	return getSoundFilename(m_SoundPlayOrder[m_CurrentSoundIdx]);
 }
 
@@ -103,9 +117,6 @@ size_t SoundPlayer::getSoundCount() const
 
 SoundPlayer::SoundPlayer()
 {
-	m_CurrentSoundIdx = 0;
-	m_bLoop = false;
-	m_bPaused = false;
 }
 
 SoundPlayer::~SoundPlayer()
@@ -127,5 +138,21 @@ void SoundPlayer::selectFolder(std::string strFolderPath, bool isMusic)
 		m_SoundPlayOrder.push_back(idx);
 		++idx;
 	}
+}
+
+void SoundPlayer::init()
+{
+	m_CurrentSoundIdx = 0;
+	m_bLoop = false;
+	m_bPaused = false;
+	m_bMusic = false;
+	m_SoundManager.init();
+}
+
+void SoundPlayer::exit()
+{
+	m_SoundManager.exit();
+	m_SoundPlayOrder.clear();
+	m_SoundFilenames.clear();	
 }
 

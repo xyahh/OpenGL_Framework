@@ -11,6 +11,8 @@ public:
 	SoundPlayer();
 	~SoundPlayer();
 
+	void init();
+	void exit();
 	void selectFolder(std::string strFolderPath, bool isMusic = true);
 
 	/* PLAYER CONTROLS ----------- */

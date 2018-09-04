@@ -5,22 +5,12 @@
 
 Sound::Sound()
 {
-	m_Sounds.reserve(m_initSoundsCapacity);
-	FMOD::System_Create(&m_SoundSystem);
-	m_SoundSystem->init(FMOD_MAX_CHANNEL_WIDTH,
-		FMOD_INIT_NORMAL, nullptr);
-	for (auto& p : m_Sounds)
-		p = nullptr;
+	init();
 }
 
 Sound::~Sound()
 {
-	for (auto& p : m_Sounds) {
-		if (p) p->release();
-		p = nullptr;
-	}
-	m_SoundSystem->close();
-	m_SoundSystem->release();
+	exit();
 }
 
 int Sound::addSound(LPCSTR path, bool isBGM)
@@ -36,6 +26,28 @@ int Sound::addSound(LPCSTR path, bool isBGM)
 
 	if (res == FMOD_OK) return m_SoundsIdx;
 	else return -1;
+}
+
+void Sound::init()
+{
+	FMOD::System_Create(&m_SoundSystem);
+	m_SoundSystem->init(FMOD_MAX_CHANNEL_WIDTH,
+		FMOD_INIT_NORMAL, nullptr);
+	for (auto& p : m_Sounds)
+		p = nullptr;
+}
+
+void Sound::exit()
+{
+	stop(true);
+	for (auto& p : m_Sounds) {
+		if (p) p->release();
+		p = nullptr;
+	}
+	m_SoundSystem->close();
+	m_SoundSystem->release();
+	m_Sounds.clear();
+	m_SoundsIdx = -1;
 }
 
 void Sound::stop(bool master_stop)

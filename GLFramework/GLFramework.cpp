@@ -37,8 +37,8 @@ void GLFramework::init(int argc, char * argv[], int WinWidth, int WinHeight, int
 	glewInit();
 	glEnable(GL_DEPTH_TEST);
 
-	addScene("Logo", new S00Logo, true);
-	addScene("Main", new S01Main);
+	addScene("Logo", new S00Logo, true, true);
+	addScene("Main", new S01Main, false);
 }
 
 void GLFramework::run()
@@ -185,18 +185,33 @@ void GLFramework::bindFunctions()
 	glutTimerFunc(m_fps, fnTimer, 1);
 }
 
-void GLFramework::addScene(std::string strSceneName, GLScene * pScene, bool bMakeThisCurrentScene)
+void GLFramework::addScene(std::string strSceneName, GLScene * pScene, bool bInitAtStart, bool bMakeThisCurrentScene)
 {
 	if (!pScene) return;
-	pScene->init();
+
+	if(bInitAtStart)
+		pScene->init();
+
+	pScene->RTLoad = !bInitAtStart;
 	m_Scenes.emplace(strSceneName, pScene);
+
 	if (bMakeThisCurrentScene)
 		m_CurrentScene = strSceneName;
 }
 
-void GLFramework::popScene()
+void GLFramework::deleteCurrentScene(std::string strNextScene)
 {
-	m_Scenes.erase(m_CurrentScene);
+	assert(m_Scenes.find(strNextScene) != m_Scenes.end());
+	deleteScene(m_CurrentScene);
+	m_CurrentScene = strNextScene;
+}
+
+void GLFramework::deleteScene(std::string strSceneName)
+{
+	assert(m_Scenes.find(strSceneName) != m_Scenes.end());
+	if (m_Scenes[strSceneName])
+		delete m_Scenes[strSceneName];
+	m_Scenes.erase(strSceneName);
 }
 
 void GLFramework::deleteScenes()
@@ -212,6 +227,12 @@ void GLFramework::deleteScenes()
 void GLFramework::toScene(std::string sceneName)
 {
 	assert(m_Scenes.find(sceneName) != m_Scenes.end());
+	if (m_Scenes[m_CurrentScene]->RTLoad)
+		m_Scenes[m_CurrentScene]->exit();
+
 	m_CurrentScene = sceneName;
+
+	if (m_Scenes[m_CurrentScene]->RTLoad)
+		m_Scenes[m_CurrentScene]->init();
 	m_Scenes[m_CurrentScene]->reset();
 }
