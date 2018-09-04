@@ -19,19 +19,18 @@ void S01Main::init()
 	m_Camera.setPerspective(30.f, 0.125f, 3500.f);
 	m_Camera.setSensitivity(10.f);
 
-	m_Model.load("Resources/model.obj", "Resources/texture.png");
-
 	for (size_t i = 0; i < 10; ++i)
-	{
-		m_Object[i].setModel(&m_Model);
+	{	
+		m_Princess[i].load("Resources/model.obj", "Resources/texture.png"); // Only 1 princess should be loaded and referenced by objects. This is done just for the Loading Screen function
+		m_Object[i].setModel(&m_Princess[0]);
 		m_Object[i].setPosition(i*200.f - 1000.f, 0.f, 0.f);
 	}
-
 }
 
 void S01Main::exit()
 {
-	m_Model.kill();
+	for (size_t i = 0; i < 10; ++i)
+		m_Princess[i].kill();
 	m_SoundPlayer.exit();
 }
 
@@ -44,7 +43,6 @@ void S01Main::render()
 {
 	m_Camera.ready();
 	print(m_SoundPlayer.getSoundFilename(), 0, 0, 200);
-
 	for(size_t i = 0; i<10; ++i)
 		m_Object[i].render();
 }

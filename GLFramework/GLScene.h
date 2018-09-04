@@ -21,10 +21,13 @@ public:
 	virtual void motion(bool pressed, int x, int y) {}
 	virtual void update(float fDeltaTime) {}
 
-	void print(std::string str, float x, float y, float z); // for debugging purposes only
+	void drawLoadingScreen();
+
+	virtual void loading(); // Testing. Very basic Loading Screen. It's virtual so each Scene may have a Different Loading Screen if desired.
+
+	void print(std::string str, float x, float y, float z) const; // for debugging purposes only
 
 public:
-
-	bool RTLoad	{ false };	// if to load when program starting or while in Runtime
+	bool RTLoad		{ false };	// if to load when program starting or while in Runtime
 };
 

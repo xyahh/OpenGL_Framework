@@ -10,7 +10,7 @@ public:
 	GLFramework(std::string strWinTitle = "Default Title");
 	~GLFramework();
 
-	void init(int argc, char* argv[], int WinWidth, int WinHeight, int DisplayMode = GLUT_DOUBLE | GLUT_RGBA);
+	void init(int argc, char* argv[], int WinWidth, int WinHeight, bool bFullScreen = false, int DisplayMode = GLUT_DOUBLE | GLUT_RGBA);
 
 	void run();
 	void draw();
@@ -50,7 +50,7 @@ public:
 	void regSpecialFunction(SpecialFunc specialDown, SpecialFunc specialUp);
 	void bindFunctions();
 
-	void addScene(std::string strSceneName, GLScene * pScene, bool bInitAtStart=true, bool bMakeThisCurrentScene = false);
+	void addScene(std::string strSceneName, GLScene * pScene, bool bInitAtStart=true);
 	void deleteCurrentScene(std::string strNextScene);
 	void deleteScene(std::string strSceneName);
 	void deleteScenes();

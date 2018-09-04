@@ -18,7 +18,7 @@ GLFramework::~GLFramework()
 {
 }
 
-void GLFramework::init(int argc, char * argv[], int WinWidth, int WinHeight, int DisplayMode)
+void GLFramework::init(int argc, char * argv[], int WinWidth, int WinHeight, bool bFullScreen, int DisplayMode)
 {
 	m_Timer.reset();
 
@@ -32,13 +32,16 @@ void GLFramework::init(int argc, char * argv[], int WinWidth, int WinHeight, int
 	glutCreateWindow(m_WinTitle.c_str());
 
 	m_Framework = this;
-	//glutFullScreen();
+	if(bFullScreen)
+		glutFullScreen();
 
 	glewInit();
 	glEnable(GL_DEPTH_TEST);
 
-	addScene("Logo", new S00Logo, true, true);
+	addScene("Logo", new S00Logo, true);
 	addScene("Main", new S01Main, false);
+
+	toScene("Logo");
 }
 
 void GLFramework::run()
@@ -185,18 +188,18 @@ void GLFramework::bindFunctions()
 	glutTimerFunc(m_fps, fnTimer, 1);
 }
 
-void GLFramework::addScene(std::string strSceneName, GLScene * pScene, bool bInitAtStart, bool bMakeThisCurrentScene)
+void GLFramework::addScene(std::string strSceneName, GLScene * pScene, bool bInitAtStart)
 {
 	if (!pScene) return;
 
-	if(bInitAtStart)
+	if (bInitAtStart)
+	{
+		pScene->drawLoadingScreen();
 		pScene->init();
-
+	}
+		
 	pScene->RTLoad = !bInitAtStart;
-	m_Scenes.emplace(strSceneName, pScene);
-
-	if (bMakeThisCurrentScene)
-		m_CurrentScene = strSceneName;
+	m_Scenes.emplace(strSceneName, pScene);	
 }
 
 void GLFramework::deleteCurrentScene(std::string strNextScene)
@@ -227,12 +230,19 @@ void GLFramework::deleteScenes()
 void GLFramework::toScene(std::string sceneName)
 {
 	assert(m_Scenes.find(sceneName) != m_Scenes.end());
-	if (m_Scenes[m_CurrentScene]->RTLoad)
-		m_Scenes[m_CurrentScene]->exit();
+
+	if (m_CurrentScene.size() > 0)
+	{
+		if (m_Scenes[m_CurrentScene]->RTLoad)
+			m_Scenes[m_CurrentScene]->exit();
+	}
 
 	m_CurrentScene = sceneName;
 
 	if (m_Scenes[m_CurrentScene]->RTLoad)
+	{
+		m_Scenes[m_CurrentScene]->drawLoadingScreen();
 		m_Scenes[m_CurrentScene]->init();
+	}
 	m_Scenes[m_CurrentScene]->reset();
 }

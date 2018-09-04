@@ -106,7 +106,7 @@ bool Model::load(std::string objectPath, std::string texturePath)
 void Model::render()
 {
 	if (!m_bLoaded) return;
-
+	
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY_EXT);
@@ -203,7 +203,6 @@ bool Model::createVBO(
 
 		return false;
 	}
-
 	return true;
 }
 

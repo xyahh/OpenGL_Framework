@@ -14,11 +14,6 @@ Texture::~Texture()
 {
 }
 
-size_t Texture::textureCount() const
-{
-	return m_VtiTextures.size();
-}
-
 void Texture::load(std::string path)
 {
 	CImage cimg;
@@ -29,23 +24,23 @@ void Texture::load(std::string path)
 	int bitsPerPixel = cimg.GetBPP() / 8;
 	bool hasAlpha = bitsPerPixel == 4;
 
-	TextureInfo tex{ m_uGlobalTexID, hasAlpha, getImageBits(&cimg) };
+	m_Texture.uTextureIdx = m_uGlobalTexID;
+	m_Texture.hasAlpha = hasAlpha;
+	m_Texture.bytes = getImageBits(&cimg);
 
-	tex.height = cimg.GetHeight();
-	tex.width = cimg.GetWidth();
+	m_Texture.height = cimg.GetHeight();
+	m_Texture.width = cimg.GetWidth();
 
 	GLenum format = GL_BGR_EXT;
 	if (hasAlpha) format = GL_BGRA_EXT;
 
-	glTexImage2D(GL_TEXTURE_2D, 0, bitsPerPixel, cimg.GetWidth(), cimg.GetHeight(), 0, format, GL_UNSIGNED_BYTE, tex.getBytes());
+	glTexImage2D(GL_TEXTURE_2D, 0, bitsPerPixel, cimg.GetWidth(), cimg.GetHeight(), 0, format, GL_UNSIGNED_BYTE, m_Texture.getBytes());
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_LINEAR);
 
-	m_VtiTextures.push_back(tex);
-	m_uLocalTexID = m_uGlobalTexID;
 	m_uGlobalTexID++;
 	m_bImgLoaded = true;
 }
@@ -58,14 +53,14 @@ void Texture::drawStart(bool usingEnv)
 	if (usingEnv)
 		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_COLOR, GL_MODULATE);
 
-	if (m_VtiTextures[m_uLocalTexID].hasAlpha)
+	if (m_Texture.hasAlpha)
 	{
 		glGetBooleanv(GL_BLEND, &m_bHasAlpha);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glEnable(GL_BLEND);
 	}
 
-	glBindTexture(GL_TEXTURE_2D, m_VtiTextures[m_uLocalTexID].uTextureIdx);
+	glBindTexture(GL_TEXTURE_2D, m_Texture.uTextureIdx);
 }
 
 void Texture::drawEnd()
