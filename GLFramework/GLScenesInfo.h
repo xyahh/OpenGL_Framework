@@ -1,6 +1,10 @@
 #pragma once
-#include "GLScene.h"
 #define _SCENES_
+/*--------------------ADD SCENES HERE--------------------*/
+
+/*~~~~~HEADER FILES~~~~*/
+#include "Scene00_Logo.h"
+#include "Scene01_Main.h"
 
 struct GLSceneInfo
 {
@@ -8,12 +12,6 @@ struct GLSceneInfo
 	GLScene*	pScene;
 	bool		bInitAtStart{ true };
 };
-
-/*--------------------ADD SCENES HERE--------------------*/
-
-/*~~~~~HEADER FILES~~~~*/
-#include "Scene00_Logo.h"
-#include "Scene01_Main.h"
 
 /*~~~~~~~SCENES~~~~~~~*/
 const GLSceneInfo SCENES[] =
