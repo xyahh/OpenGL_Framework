@@ -1,13 +1,10 @@
 #include "stdafx.h"
-#include "GLScene.h"
 #include "GLFramework.h"
+#ifndef _SCENES_
+#include "GLScenesInfo.h"
+#endif
 
 using namespace std;
-
-/* SCENES */
-#include "Scene00_Logo.h"
-#include "Scene01_Main.h"
-/*--------*/
 
 GLFramework::GLFramework(std::string strWinTitle)
 {
@@ -37,11 +34,9 @@ void GLFramework::init(int argc, char * argv[], int WinWidth, int WinHeight, boo
 
 	glewInit();
 	glEnable(GL_DEPTH_TEST);
-
-	addScene("Logo", new S00Logo, true);
-	addScene("Main", new S01Main, false);
-
-	toScene("Logo");
+	for (auto scene : SCENES)
+		addScene(scene.name, scene.pScene, scene.bInitAtStart);
+	toScene(STARTING_SCENE);
 }
 
 void GLFramework::run()
@@ -125,7 +120,6 @@ void GLFramework::specialUp(int key, int x, int y)
 
 void GLFramework::update(int value)
 {
-
 	m_Timer.tick();
 	if (m_Scenes[m_CurrentScene])
 		m_Scenes[m_CurrentScene]->update(m_Timer.getTimeElapsed());

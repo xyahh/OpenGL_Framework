@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Base">
-      <UniqueIdentifier>{f27eef74-582d-4df1-ae80-31fc09b42197}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Base">
       <UniqueIdentifier>{f5c0568b-55d9-4c90-8935-077e467f874a}</UniqueIdentifier>
     </Filter>
@@ -48,6 +45,9 @@
     </Filter>
     <Filter Include="Source Files\Utilities\Media">
       <UniqueIdentifier>{5b2bf11e-a8eb-4bd4-b770-644c09598d98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Base">
+      <UniqueIdentifier>{f27eef74-582d-4df1-ae80-31fc09b42197}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +102,9 @@
     <ClCompile Include="Scene00_Logo.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="GLScenesInfo.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -150,6 +153,9 @@
       <Filter>Header Files\Utilities\Media</Filter>
     </ClInclude>
     <ClInclude Include="Scene00_Logo.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="GLScenesInfo.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>

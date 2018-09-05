@@ -28,7 +28,7 @@ public:
 private:
 
 	Camera			m_Camera;
-	Model			m_Princess[10];
+	Model			m_Princess;
 	Object			m_Object[10];
 	SoundPlayer		m_SoundPlayer;
 };

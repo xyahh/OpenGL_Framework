@@ -30,4 +30,3 @@ public:
 public:
 	bool RTLoad		{ false };	// if to load when program starting or while in Runtime
 };
-

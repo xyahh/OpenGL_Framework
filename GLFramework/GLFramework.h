@@ -6,7 +6,6 @@ class GLScene;
 class GLFramework
 {
 public:
-
 	GLFramework(std::string strWinTitle = "Default Title");
 	~GLFramework();
 
